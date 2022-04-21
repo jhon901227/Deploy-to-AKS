@@ -67,7 +67,7 @@ stages:
              kubernetesServiceConnection: 'aksjohn'
              namespace: 'default'
              secretType: 'dockerRegistry'
-             secretName: '$(johnacrsecret)'
+             secretName: '$(acrsecret)'
              dockerRegistryEndpoint: 'acrjohn'
          
       - task: KubernetesManifest@0
