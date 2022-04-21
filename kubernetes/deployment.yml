@@ -15,6 +15,6 @@ spec:
     spec:
       containers:
         - name: sampleapp 
-          image: acrjohn1020437103.azurecr.io/jhondeploytoaks21
+          image: acrjohn1020437103.azurecr.io/jhondeploytoaks21:latest
           ports:
           - containerPort: 80
