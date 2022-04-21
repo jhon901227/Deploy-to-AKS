@@ -12,7 +12,7 @@ variables:
   # Container registry service connection established during pipeline creation
   dockerRegistryServiceConnection: 'dfbb5e3e-e889-47e1-9d28-257d41499f03'
   imageRepository: 'jhondeploytoaks21'
-  containerRegistry: 'acrjohn1020437103.azurecr.io'
+  containerRegistry: 'acrjohn10204371031.azurecr.io'
   dockerfilePath: '$(Build.SourcesDirectory)/app/Dockerfile'
   tag: '$(Build.BuildId)'
 
@@ -68,7 +68,7 @@ stages:
              namespace: 'default'
              secretType: 'dockerRegistry'
              secretName: '$(acrsecret)'
-             dockerRegistryEndpoint: '$(containerRegistry)'
+             dockerRegistryEndpoint: 'acrjohn10204371031'
          
       - task: KubernetesManifest@0
         inputs:
