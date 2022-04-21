@@ -3,6 +3,7 @@ kind: Deployment
 metadata:
   name: sampleapp 
 spec:
+  progressDeadlineSeconds: 800
   replicas: #replicaNo#
   selector:
     matchLabels:
