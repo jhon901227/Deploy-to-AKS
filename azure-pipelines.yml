@@ -50,33 +50,36 @@ stages:
   variables:
     acrsecret: johnacrsecret
   jobs:
-   - job: Deploy 
+   - deployment: Deploy 
      displayName: Deploy to AKS
+     environment: 'DevK8S.default'
      pool: 
       vmImage: $(vmImageName)
-     steps:
-      - task: DownloadPipelineArtifact@2
-        inputs:
-         buildType: 'current'
-         artifactName: 'manifest'
-         targetPath: '$(Pipeline.Workspace)/manifest'
-         
-      - task: KubernetesManifest@0
-        inputs:
-         action: 'createSecret'
-         namespace: 'default'
-         kubernetesServiceConnection: 'aksjohn'
-         secretType: 'dockerRegistry'
-         secretName: '$(acrsecret)'
-         dockerRegistryEndpoint: 'acrjohn10204371031'
-         
-      - task: KubernetesManifest@0
-        inputs:
-          action: 'deploy'
-          kubernetesServiceConnection: 'aksjohn'
-          namespace: 'default'
-          manifests: |
-             $(Pipeline.Workspace)/manifest/deployment.yml
-             $(Pipeline.Workspace)/manifest/service.yml
-          imagePullSecrets: '$(acrsecret)'
-           
+     strategy: 
+      runOnce:
+        deploy:
+          steps:
+            - task: DownloadPipelineArtifact@2
+              inputs:
+                buildType: 'current'
+                artifactName: 'manifest'
+                targetPath: '$(Pipeline.Workspace)/manifest'
+              
+            - task: KubernetesManifest@0
+              inputs:
+                action: 'createSecret'
+                namespace: 'default'
+                kubernetesServiceConnection: 'aksjohn'
+                secretType: 'dockerRegistry'
+                secretName: '$(acrsecret)'
+                dockerRegistryEndpoint: 'acrjohn10204371031'
+            - task: KubernetesManifest@0
+              inputs:
+                action: 'deploy'
+                kubernetesServiceConnection: 'aksjohn'
+                namespace: 'default'
+                manifests: |
+                  $(Pipeline.Workspace)/manifest/deployment.yml
+                  $(Pipeline.Workspace)/manifest/service.yml
+                imagePullSecrets: '$(acrsecret)'
+                
