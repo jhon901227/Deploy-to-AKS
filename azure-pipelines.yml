@@ -63,12 +63,11 @@ stages:
          
       - task: KubernetesManifest@0
         inputs:
-             action: 'createSecret'
-             kubernetesServiceConnection: 'aksjohn'
-             namespace: 'default'
-             secretType: 'dockerRegistry'
-             secretName: '$(acrsecret)'
-             dockerRegistryEndpoint: '$(containerRegistry)'
+         action: 'createSecret'
+         kubernetesServiceConnection: 'aksjohn'
+         secretType: 'dockerRegistry'
+         secretName: '$(acrsecret)'
+         dockerRegistryEndpoint: 'acrjohn10204371031'
          
       - task: KubernetesManifest@0
         inputs:
