@@ -78,4 +78,5 @@ stages:
           manifests: |
              $(Pipeline.Workspace)/manifest/deployment.yml
              $(Pipeline.Workspace)/manifest/service.yml
+          imagePullSecrets: '$(acrsecret)'
            
